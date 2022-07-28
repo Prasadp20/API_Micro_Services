@@ -1,0 +1,30 @@
+{
+  // Add this .json file 
+  "Routes": [
+    { // in downstream we use server related details
+      "DownstreamPathTemplate": "/api/users", //users - controller
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost", //server ip address come here now its a local 
+          "Port": 41592 //11569
+        }
+      ], // upstream use for Ocelot api server to identify user action
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ] // user request, put means modify the add
+    },
+    { // below code is change with Services like users, students, etc
+      "DownstreamPathTemplate": "/api/users/{id}", // for get and delete request we use id parameter
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 41592 //11569
+        }
+      ],
+      "UpstreamPathTemplate": "/users/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    }
+  ]
+}
+
